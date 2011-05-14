@@ -18,13 +18,14 @@ class User < ActiveRecord::Base
 	
 	validates :name, :presence => true,
 			:length => { :maximum => 50 }
-	validates :email, :presence => true,
+	validates :email, 
+			:presence => true,
 			:format => {:width =>email_regex },
 			:uniqueness => { :case_sensitive => false }
 	#Automatically create the virtual attribute 'password_confirmation'.
-	validates :password, :presence		=> true,
-					:confirmation	=> true,
-					:length		=> {:within => 6..40}
+	validates :password, :presence	=> true,
+					:confirmation=> true,
+					:length=> {:within => 6..40}
 					
 	before_save :encrypt_password
 	
