@@ -6,15 +6,15 @@ class UsersController < ApplicationController
 	end
 	
 	def new
-		#@user = User.new
+		@user = User.new
 		@title = "Sign up"
 	end
 	
 	def create
 		@user = User.new(params[:user])
 		if @user.save
-			flash[:success] = "Welcome to Sample App!"
-			redirect_to @user
+			redirect_to @user,  flash[:success] = "Welcome to Sample App!"
+			#a mintában ez kicsit maskepp szerepel, de ok
 		else
 			@title = "Sign up"
 			render 'new'

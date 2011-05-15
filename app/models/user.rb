@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 			:length => { :maximum => 50 }
 	validates :email, 
 			:presence => true,
-			:format => {:width =>email_regex },
+			:format => {:with =>email_regex },
 			:uniqueness => { :case_sensitive => false }
 	#Automatically create the virtual attribute 'password_confirmation'.
 	validates :password, :presence	=> true,
@@ -32,13 +32,19 @@ class User < ActiveRecord::Base
 	#Return true if the user's password matches the submitted password.
 	def has_password?(submitted_password)
 		#Compare encrypted_password with the encrypted version of submitted_password
-		encrypted_password == encrypt(password)
+		encrypted_password == encrypt(submitted_password)
 	end
 	
-	def self.authenticate(email, submitted_password)
-		user = find_by_email(email)
-		return nil if user.nil?
-		return user if user.has_password?(submitted_password)
+	class <<self
+		def self.authenticate(email, submitted_password)
+			user = find_by_email(email)
+			return nil if user.nil?
+			return user if user.has_password?(submitted_password)
+		end
+		def authenticate_with_salt(id,cookie_salt)
+			user = find_by_id(id)
+			(user && user.salt == cookie_salt) ? user:nil
+		end
 	end
 	
 	
