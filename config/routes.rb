@@ -1,4 +1,6 @@
 SampleApp::Application.routes.draw do
+  get "sessions/new"
+
 #<<<<<<< master
 #=======
 	resources :users

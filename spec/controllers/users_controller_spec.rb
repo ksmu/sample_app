@@ -64,6 +64,11 @@ describe UsersController do
 			post :create, :user => @attr
 			flash[:success].should =~ /welcome to the sample app/i
 		end
+		#ha nem teljesul, nem enged be?
+		it "should sign the user in" do
+			post :create, :user => @attr
+			controller.should be_signed_in
+		end
 
 	end
 
