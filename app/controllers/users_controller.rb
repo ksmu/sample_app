@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-	before_filter :authenticate, :only 	=> [:edit, :edit, :update]
+	before_filter :authenticate, :only 	=> [:index, :edit, :update,:destroy]
 	before_filter :correct_user, :only 	=> [:edit, :update]
 	before_filter :admin_user,	 :only	=> :destroy
 	
@@ -57,7 +57,7 @@ class UsersController < ApplicationController
 		redirect_to users_path
 	end
 	
-private
+
 	def authenticate
 		deny_access unless signed_in?
 	end

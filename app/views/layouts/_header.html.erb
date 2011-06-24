@@ -13,7 +13,7 @@
 
 			<li><%= link_to "Help", help_path %></li>
 			<% if signed_in? %>
-				<li><%= link_to "Sign_out",signout_path, :method=>delete%></li>
+				<li><%= link_to "Sign_out",signout_path%></li>
 			<% else %>
 				<li><%= link_to "Sign_in",signin_path%></li>
 			<% end %>
